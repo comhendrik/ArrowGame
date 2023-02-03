@@ -9,18 +9,19 @@ import "triangle"
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
+
 local function initialize()
-    local wall = Wall(350, 120, 20, 175)
-    wall:add()
-    local triangle = Triangle(0, 0, 5, 10)
+    local goalWall = Wall(350, 120, 20, 175)
+    goalWall:add()
+    triangle = Triangle(40,40)
     triangle:add()
 end
 
 initialize()
 
 function playdate.update()
-    if pd.buttonIsPressed(pd.kButtonA) then
-        local newArrow = Arrow(20, 120, 5, 1.6)
+    if pd.buttonJustPressed(pd.kButtonA) then
+        local newArrow = Arrow(40, triangle.y -10, 5, 1.6)
         newArrow:add()
     end
     gfx.sprite.update()

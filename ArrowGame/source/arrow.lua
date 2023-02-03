@@ -9,7 +9,7 @@ function Arrow:init(x, y, speed, accelaration)
     self:setGroups(1)
     self.x = x
     self.y = y
-    local arrowImage = gfx.image.new("images/arrow")
+    local arrowImage = gfx.image.new("images/arrow_up")
     self:setImage(arrowImage)
     self.speed = speed
     self.accelaration = accelaration
@@ -27,9 +27,20 @@ function Arrow:update()
         if self.accelaration > 4 then
             self.reachedHighesPoint = true
             self.accelaration = 0
+            self:updateImage("images/arrow_down")
         end
     end
     self:moveWithCollisions(self.x, self.y)
+    if self.y < 0 then
+        self:remove()
+    elseif self.y > 240 then
+        self:remove()
+    end
+end
+
+function Arrow:updateImage(imageName)
+    local arrowImage = gfx.image.new(imageName)
+    self:setImage(arrowImage)
 end
 
 function Arrow:collisionResponse(other)
